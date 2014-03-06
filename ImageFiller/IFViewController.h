@@ -10,4 +10,8 @@
 
 @interface IFViewController : UIViewController
 
+- (IBAction)loadImages:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *logMessage;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+
 @end
