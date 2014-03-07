@@ -21,6 +21,7 @@
 		5014695518C8D68200785E1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014693718C8D68200785E1B /* UIKit.framework */; };
 		5014695D18C8D68200785E1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5014695B18C8D68200785E1B /* InfoPlist.strings */; };
 		5014695F18C8D68200785E1B /* ImageFillerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014695E18C8D68200785E1B /* ImageFillerTests.m */; };
+		5014696918C8DCAB00785E1B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014696818C8DCAB00785E1B /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		5014695A18C8D68200785E1B /* ImageFillerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImageFillerTests-Info.plist"; sourceTree = "<group>"; };
 		5014695C18C8D68200785E1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5014695E18C8D68200785E1B /* ImageFillerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFillerTests.m; sourceTree = "<group>"; };
+		5014696818C8DCAB00785E1B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5014696918C8DCAB00785E1B /* AssetsLibrary.framework in Frameworks */,
 				5014693618C8D68200785E1B /* CoreGraphics.framework in Frameworks */,
 				5014693818C8D68200785E1B /* UIKit.framework in Frameworks */,
 				5014693418C8D68200785E1B /* Foundation.framework in Frameworks */,
@@ -101,6 +104,7 @@
 		5014693218C8D68200785E1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5014696818C8DCAB00785E1B /* AssetsLibrary.framework */,
 				5014693318C8D68200785E1B /* Foundation.framework */,
 				5014693518C8D68200785E1B /* CoreGraphics.framework */,
 				5014693718C8D68200785E1B /* UIKit.framework */,
