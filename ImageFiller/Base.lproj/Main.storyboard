@@ -37,8 +37,22 @@
                                 <rect key="frame" x="20" y="109" width="280" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="2xt-c9-3Df">
+                                <rect key="frame" x="20" y="243" width="280" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Don't run this on a production device!
+
+It will litter your photoalbum with thousands of photos!</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="1" green="0.50596859097944391" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="2xt-c9-3Df" secondAttribute="centerX" id="Ggh-eU-c2J"/>
+                            <constraint firstAttribute="centerY" secondItem="2xt-c9-3Df" secondAttribute="centerY" id="KGv-5U-3B5"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="logMessage" destination="c8h-cN-bOh" id="CpN-Dt-u5b"/>
