@@ -9,5 +9,5 @@ Somtimes you just need a few thousand images in your iPhones photo album to test
 
 The app will try to push 5000 photos to the album, about 700 will end up there. If you want more images just hit the "Load" button a few more times.
 
-This is what your photo album will ook like afterwards:
+This is what your photo album will look like afterwards:
 ![iOS Photo Album](Screenshot.png)
