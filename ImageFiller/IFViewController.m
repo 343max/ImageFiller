@@ -35,8 +35,8 @@
     [super viewDidLoad];
     
     self.totalImagesWrittenCount = 0;
-    self.totalImageDownloadCount = 100;
-    self.totalImageWriteCount = 1000;
+    self.totalImageDownloadCount = 150;
+    self.totalImageWriteCount = 5000;
     
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
     self.operationQueue = [[NSOperationQueue alloc] init];
