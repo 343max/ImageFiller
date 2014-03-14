@@ -22,6 +22,8 @@
 		5014695D18C8D68200785E1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5014695B18C8D68200785E1B /* InfoPlist.strings */; };
 		5014695F18C8D68200785E1B /* ImageFillerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014695E18C8D68200785E1B /* ImageFillerTests.m */; };
 		5014696918C8DCAB00785E1B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014696818C8DCAB00785E1B /* AssetsLibrary.framework */; };
+		EA22661F18D2B52200D8FDC4 /* IFSavePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */; };
+		EA22662218D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,10 @@
 		5014695C18C8D68200785E1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5014695E18C8D68200785E1B /* ImageFillerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFillerTests.m; sourceTree = "<group>"; };
 		5014696818C8DCAB00785E1B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		EA22661D18D2B52200D8FDC4 /* IFSavePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSavePhotoOperation.h; sourceTree = "<group>"; };
+		EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSavePhotoOperation.m; sourceTree = "<group>"; };
+		EA22662018D2C48B00D8FDC4 /* IFCreateAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFCreateAlbumsOperation.h; sourceTree = "<group>"; };
+		EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFCreateAlbumsOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,7 @@
 				5014694518C8D68200785E1B /* Main.storyboard */,
 				5014694818C8D68200785E1B /* IFViewController.h */,
 				5014694918C8D68200785E1B /* IFViewController.m */,
+				EA22661C18D2B4C900D8FDC4 /* NSOperations */,
 				5014694B18C8D68200785E1B /* Images.xcassets */,
 				5014693A18C8D68200785E1B /* Supporting Files */,
 			);
@@ -154,6 +161,17 @@
 				5014695B18C8D68200785E1B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA22661C18D2B4C900D8FDC4 /* NSOperations */ = {
+			isa = PBXGroup;
+			children = (
+				EA22661D18D2B52200D8FDC4 /* IFSavePhotoOperation.h */,
+				EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */,
+				EA22662018D2C48B00D8FDC4 /* IFCreateAlbumsOperation.h */,
+				EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */,
+			);
+			name = NSOperations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +274,8 @@
 			files = (
 				5014694018C8D68200785E1B /* main.m in Sources */,
 				5014694418C8D68200785E1B /* IFAppDelegate.m in Sources */,
+				EA22661F18D2B52200D8FDC4 /* IFSavePhotoOperation.m in Sources */,
+				EA22662218D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m in Sources */,
 				5014694A18C8D68200785E1B /* IFViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +485,7 @@
 				5014696418C8D68200785E1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5014696518C8D68200785E1B /* Build configuration list for PBXNativeTarget "ImageFillerTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +494,7 @@
 				5014696718C8D68200785E1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,20 @@
+# xcode noise
+
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+xcuserdata
+build/*
+DerivedData/
+
+# cocoapod noise
+
+*.xcworkspace
+Pods/*
+
+# osx noise
+
+.DS_Store
+profile
