@@ -16,23 +16,10 @@
 		5014694718C8D68200785E1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5014694518C8D68200785E1B /* Main.storyboard */; };
 		5014694A18C8D68200785E1B /* IFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014694918C8D68200785E1B /* IFViewController.m */; };
 		5014694C18C8D68200785E1B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5014694B18C8D68200785E1B /* Images.xcassets */; };
-		5014695318C8D68200785E1B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014695218C8D68200785E1B /* XCTest.framework */; };
-		5014695418C8D68200785E1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014693318C8D68200785E1B /* Foundation.framework */; };
-		5014695518C8D68200785E1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014693718C8D68200785E1B /* UIKit.framework */; };
-		5014695D18C8D68200785E1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5014695B18C8D68200785E1B /* InfoPlist.strings */; };
-		5014695F18C8D68200785E1B /* ImageFillerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014695E18C8D68200785E1B /* ImageFillerTests.m */; };
 		5014696918C8DCAB00785E1B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014696818C8DCAB00785E1B /* AssetsLibrary.framework */; };
+		EA22661F18D2B52200D8FDC4 /* IFSavePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */; };
+		EA22662218D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5014695618C8D68200785E1B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5014692818C8D68200785E1B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5014692F18C8D68200785E1B;
-			remoteInfo = ImageFiller;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5014693018C8D68200785E1B /* ImageFiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,12 +36,12 @@
 		5014694818C8D68200785E1B /* IFViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFViewController.h; sourceTree = "<group>"; };
 		5014694918C8D68200785E1B /* IFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFViewController.m; sourceTree = "<group>"; };
 		5014694B18C8D68200785E1B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5014695118C8D68200785E1B /* ImageFillerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFillerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5014695218C8D68200785E1B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		5014695A18C8D68200785E1B /* ImageFillerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImageFillerTests-Info.plist"; sourceTree = "<group>"; };
-		5014695C18C8D68200785E1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5014695E18C8D68200785E1B /* ImageFillerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFillerTests.m; sourceTree = "<group>"; };
 		5014696818C8DCAB00785E1B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		EA22661D18D2B52200D8FDC4 /* IFSavePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSavePhotoOperation.h; sourceTree = "<group>"; };
+		EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSavePhotoOperation.m; sourceTree = "<group>"; };
+		EA22662018D2C48B00D8FDC4 /* IFCreateAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFCreateAlbumsOperation.h; sourceTree = "<group>"; };
+		EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFCreateAlbumsOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,16 +56,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5014694E18C8D68200785E1B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5014695318C8D68200785E1B /* XCTest.framework in Frameworks */,
-				5014695518C8D68200785E1B /* UIKit.framework in Frameworks */,
-				5014695418C8D68200785E1B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				5014693918C8D68200785E1B /* ImageFiller */,
-				5014695818C8D68200785E1B /* ImageFillerTests */,
 				5014693218C8D68200785E1B /* Frameworks */,
 				5014693118C8D68200785E1B /* Products */,
 			);
@@ -96,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				5014693018C8D68200785E1B /* ImageFiller.app */,
-				5014695118C8D68200785E1B /* ImageFillerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,6 +96,7 @@
 				5014694518C8D68200785E1B /* Main.storyboard */,
 				5014694818C8D68200785E1B /* IFViewController.h */,
 				5014694918C8D68200785E1B /* IFViewController.m */,
+				EA22661C18D2B4C900D8FDC4 /* NSOperations */,
 				5014694B18C8D68200785E1B /* Images.xcassets */,
 				5014693A18C8D68200785E1B /* Supporting Files */,
 			);
@@ -138,22 +114,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5014695818C8D68200785E1B /* ImageFillerTests */ = {
+		EA22661C18D2B4C900D8FDC4 /* NSOperations */ = {
 			isa = PBXGroup;
 			children = (
-				5014695E18C8D68200785E1B /* ImageFillerTests.m */,
-				5014695918C8D68200785E1B /* Supporting Files */,
+				EA22661D18D2B52200D8FDC4 /* IFSavePhotoOperation.h */,
+				EA22661E18D2B52200D8FDC4 /* IFSavePhotoOperation.m */,
+				EA22662018D2C48B00D8FDC4 /* IFCreateAlbumsOperation.h */,
+				EA22662118D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m */,
 			);
-			path = ImageFillerTests;
-			sourceTree = "<group>";
-		};
-		5014695918C8D68200785E1B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5014695A18C8D68200785E1B /* ImageFillerTests-Info.plist */,
-				5014695B18C8D68200785E1B /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
+			name = NSOperations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,24 +145,6 @@
 			productReference = 5014693018C8D68200785E1B /* ImageFiller.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5014695018C8D68200785E1B /* ImageFillerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5014696518C8D68200785E1B /* Build configuration list for PBXNativeTarget "ImageFillerTests" */;
-			buildPhases = (
-				5014694D18C8D68200785E1B /* Sources */,
-				5014694E18C8D68200785E1B /* Frameworks */,
-				5014694F18C8D68200785E1B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5014695718C8D68200785E1B /* PBXTargetDependency */,
-			);
-			name = ImageFillerTests;
-			productName = ImageFillerTests;
-			productReference = 5014695118C8D68200785E1B /* ImageFillerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -203,11 +154,6 @@
 				CLASSPREFIX = IF;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Max von Webel";
-				TargetAttributes = {
-					5014695018C8D68200785E1B = {
-						TestTargetID = 5014692F18C8D68200785E1B;
-					};
-				};
 			};
 			buildConfigurationList = 5014692B18C8D68200785E1B /* Build configuration list for PBXProject "ImageFiller" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -223,7 +169,6 @@
 			projectRoot = "";
 			targets = (
 				5014692F18C8D68200785E1B /* ImageFiller */,
-				5014695018C8D68200785E1B /* ImageFillerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -239,14 +184,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5014694F18C8D68200785E1B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5014695D18C8D68200785E1B /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -256,27 +193,13 @@
 			files = (
 				5014694018C8D68200785E1B /* main.m in Sources */,
 				5014694418C8D68200785E1B /* IFAppDelegate.m in Sources */,
+				EA22661F18D2B52200D8FDC4 /* IFSavePhotoOperation.m in Sources */,
+				EA22662218D2C48B00D8FDC4 /* IFCreateAlbumsOperation.m in Sources */,
 				5014694A18C8D68200785E1B /* IFViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5014694D18C8D68200785E1B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5014695F18C8D68200785E1B /* ImageFillerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5014695718C8D68200785E1B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5014692F18C8D68200785E1B /* ImageFiller */;
-			targetProxy = 5014695618C8D68200785E1B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5014693C18C8D68200785E1B /* InfoPlist.strings */ = {
@@ -293,14 +216,6 @@
 				5014694618C8D68200785E1B /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5014695B18C8D68200785E1B /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5014695C18C8D68200785E1B /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -404,48 +319,6 @@
 			};
 			name = Release;
 		};
-		5014696618C8D68200785E1B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ImageFiller.app/ImageFiller";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImageFiller/ImageFiller-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ImageFillerTests/ImageFillerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		5014696718C8D68200785E1B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ImageFiller.app/ImageFiller";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImageFiller/ImageFiller-Prefix.pch";
-				INFOPLIST_FILE = "ImageFillerTests/ImageFillerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -465,14 +338,7 @@
 				5014696418C8D68200785E1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		5014696518C8D68200785E1B /* Build configuration list for PBXNativeTarget "ImageFillerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5014696618C8D68200785E1B /* Debug */,
-				5014696718C8D68200785E1B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,18 +8,23 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ImageIO/ImageIO.h>
-
 #import "IFViewController.h"
+#import "IFSavePhotoOperation.h"
+#import "IFCreateAlbumsOperation.h"
 
-@interface IFViewController ()
+@interface IFViewController () <IFSavePhotoOperationDelegate, IFCreateAlbumsOperationDelegate>
 
-@property (strong) NSURLSession *session;
-@property (assign) NSInteger totalImageDownloadCount;
-@property (assign) NSInteger totalImageWriteCount;
-@property (assign) NSInteger totalImagesWrittenCount;
-@property (strong) NSMutableArray *images;
+@property (weak, nonatomic) IBOutlet UILabel *logMessage;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UISwitch *createAlbumSwitch;
 
-@property (strong) ALAssetsLibrary *assetsLibrary;
+@property (strong, nonatomic) NSURLSession *session;
+@property (assign, nonatomic) NSInteger totalImageDownloadCount;
+@property (assign, nonatomic) NSInteger totalImageWriteCount;
+@property (assign, nonatomic) NSInteger totalImagesWrittenCount;
+@property (strong, nonatomic) NSMutableArray *images;
+@property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
+@property (strong, nonatomic) NSOperationQueue *operationQueue;
 
 @end
 
@@ -29,78 +34,89 @@
 {
     [super viewDidLoad];
     
-    self.totalImageDownloadCount = 100;
+    self.totalImagesWrittenCount = 0;
+    self.totalImageDownloadCount = 150;
     self.totalImageWriteCount = 5000;
     
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.operationQueue = [[NSOperationQueue alloc] init];
+    self.operationQueue.maxConcurrentOperationCount = 1;
+    
+    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
+                                      usingBlock:nil
+                                    failureBlock:nil];
 }
 
 - (void)addImagesToLibrary
 {
     [self log:[NSString stringWithFormat:@"adding %li images to the library", (long)self.totalImageWriteCount]];
-
-    NSDateFormatter *exifDateFormatter = [[NSDateFormatter alloc] init];
-    [exifDateFormatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
     
-    self.totalImagesWrittenCount = 0;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (NSInteger index = 0; index < self.totalImageWriteCount; index++) {
-            UIImage *image = self.images[arc4random() % self.images.count];
-            
-            NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-(float)(arc4random() % (5 * 365 * 24 * 3600))];
-            
-            NSDictionary *exifData = @{ (NSString *)kCGImagePropertyExifDateTimeOriginal: [exifDateFormatter stringFromDate:date] };
-            
-            NSDictionary *metadata = @{ (NSString *)kCGImagePropertyExifDictionary: exifData };
-            
-            [self.assetsLibrary writeImageToSavedPhotosAlbum:image.CGImage
-                                                    metadata:metadata
-                                             completionBlock:^(NSURL *assetURL, NSError *error) {
-                                                 self.totalImagesWrittenCount += 1;
-                                                 [self progress:self.totalImagesWrittenCount
-                                                             of:self.totalImageWriteCount];
-                                                 
-                                                 if (self.totalImageWriteCount == self.totalImagesWrittenCount) {
-                                                     [self log:@"complete!"];
-                                                 }
-                                             }];
-        }
-    });
+    for (NSInteger index = 0; index < self.totalImageWriteCount; index++) {
+        UIImage *image = self.images[arc4random() % self.images.count];
+        
+        IFSavePhotoOperation *op = [[IFSavePhotoOperation alloc] initWithAssetsLibrary:self.assetsLibrary
+                                                                                 image:image];
+        op.delegate = self;
+        [self.operationQueue addOperation:op];
+    }
 }
+
+#pragma mark - <IFSavePhotoOperationDelegate>
+
+- (void)didSavePhoto:(UIImage *)image
+{
+    self.totalImagesWrittenCount++;
+    
+    [self progress:self.totalImagesWrittenCount
+                of:self.totalImageWriteCount];
+    
+    if (self.totalImagesWrittenCount == self.totalImageWriteCount) {
+        if (self.createAlbumSwitch.on) {
+            IFCreateAlbumsOperation *op = [[IFCreateAlbumsOperation alloc] initWithAssetsLibrary:self.assetsLibrary];
+            op.delegate = self;
+            [op start];
+        } else {
+            [self didCreateAlbums];
+        }
+    }
+}
+
+#pragma mark - <IFCreateAlbumsOperationDelegate>
+
+- (void)didCreateAlbums
+{
+    [self log:@"complete!"];
+}
+
+#pragma mark - Private
 
 - (void)log:(NSString *)log
 {
-    NSLog(@"%@", log);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.logMessage.text = log;
     });
 }
 
-- (void)progress:(NSInteger)progress of:(NSInteger)total
+- (void)progress:(NSInteger)progress
+              of:(NSInteger)total
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.progressView.progress = (float)progress / (float)total;
     });
 }
 
-- (IBAction)loadImages:(id)sender {
+- (IBAction)loadImages:(id)sender
+{
     [self log:@"loading images"];
     
     self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
     self.images = [NSMutableArray array];
-    
     NSURL *tempURL = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     
     for (NSInteger index = 0; index < self.totalImageDownloadCount; index++) {
-        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/400/400/?%i", arc4random()]];
+        NSInteger imageW = 400 + arc4random() % 400;
+        NSInteger imageH = 400 + arc4random() % 200;
+        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/%d/%d/?%i", imageW, imageH, arc4random() % self.totalImageDownloadCount]];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         NSURLSessionDownloadTask *downloadTask = [self.session downloadTaskWithRequest:request
                                                                      completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
@@ -122,7 +138,6 @@
                                                                          
                                                                          [self progress:self.images.count
                                                                                      of:self.totalImageDownloadCount];
-                                                                         
                                                                          
                                                                          if (self.images.count == self.totalImageDownloadCount) {
                                                                              [self addImagesToLibrary];
