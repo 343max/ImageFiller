@@ -10,6 +10,14 @@
 #import <ImageIO/ImageIO.h>
 
 #import "IFViewController.h"
+#import "CHHTTPConnection.h"
+//You can define the max concurrent count when writing to photo library
+
+#if TARGET_IPHONE_SIMULATOR
+#define MAXConcurrentCount NSIntegerMax
+#else 
+#define MAXConcurrentCount 100//Tested in iTouch 4, iOS 6, 100 is safe to use. You can adjust the count if needed.
+#endif
 
 @interface IFViewController ()
 
@@ -17,7 +25,7 @@
 @property (assign) NSInteger totalImageDownloadCount;
 @property (assign) NSInteger totalImageWriteCount;
 @property (assign) NSInteger totalImagesWrittenCount;
-@property (strong) NSMutableArray *images;
+@property (strong) NSMutableArray *imagePATHs;
 
 @property (strong) ALAssetsLibrary *assetsLibrary;
 
@@ -49,30 +57,44 @@
     [exifDateFormatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
     
     self.totalImagesWrittenCount = 0;
+    __block NSInteger maxConcurrentCount = MAXConcurrentCount;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (NSInteger index = 0; index < self.totalImageWriteCount; index++) {
-            UIImage *image = self.images[arc4random() % self.images.count];
-            
-            NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-(float)(arc4random() % (5 * 365 * 24 * 3600))];
-            
-            NSDictionary *exifData = @{ (NSString *)kCGImagePropertyExifDateTimeOriginal: [exifDateFormatter stringFromDate:date] };
-            
-            NSDictionary *metadata = @{ (NSString *)kCGImagePropertyExifDictionary: exifData };
-            
-            [self.assetsLibrary writeImageToSavedPhotosAlbum:image.CGImage
-                                                    metadata:metadata
-                                             completionBlock:^(NSURL *assetURL, NSError *error) {
-                                                 self.totalImagesWrittenCount += 1;
-                                                 [self progress:self.totalImagesWrittenCount
-                                                             of:self.totalImageWriteCount];
-                                                 
-                                                 if (self.totalImageWriteCount == self.totalImagesWrittenCount) {
-                                                     [self log:@"complete!"];
-                                                 }
-                                             }];
+    for (NSInteger index = 0; index < self.totalImageWriteCount; index++) {
+        UIImage *image = [UIImage imageWithContentsOfFile:self.imagePATHs[arc4random() % self.imagePATHs.count]];
+        
+        NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-(float)(arc4random() % (5 * 365 * 24 * 3600))];
+        
+        NSDictionary *exifData = @{ (NSString *)kCGImagePropertyExifDateTimeOriginal: [exifDateFormatter stringFromDate:date] };
+        
+        NSDictionary *metadata = @{ (NSString *)kCGImagePropertyExifDictionary: exifData };
+        
+
+        maxConcurrentCount--;
+        [self.assetsLibrary writeImageToSavedPhotosAlbum:image.CGImage
+                                                metadata:metadata
+                                         completionBlock:^(NSURL *assetURL, NSError *error) {
+                                             self.totalImagesWrittenCount += 1;
+                                             
+                                             [self progress:self.totalImagesWrittenCount
+                                                         of:self.totalImageWriteCount];
+                                             
+                                             if (self.totalImageWriteCount == self.totalImagesWrittenCount) {
+                                                 [self log:@"complete!"];
+                                             }
+                                             
+                                             maxConcurrentCount++;
+                                         }];
+        
+        //Wati until write operation finished when target is a real device, otherwise memory pressure will cause crash
+        NSTimeInterval checkEveryInterval = 0.1;
+        while(maxConcurrentCount < 0) {
+            @autoreleasepool {
+                if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:checkEveryInterval]])
+                    [NSThread sleepForTimeInterval:checkEveryInterval];
+            }
         }
-    });
+    }
+    
 }
 
 - (void)log:(NSString *)log
@@ -92,43 +114,74 @@
 
 - (IBAction)loadImages:(id)sender {
     [self log:@"loading images"];
-    
-    self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    self.images = [NSMutableArray array];
+    self.imagePATHs = [NSMutableArray array];
     
     NSURL *tempURL = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     
+    if (NSClassFromString(@"NSURLSession")) {
+        self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    }
+        
+        
     for (NSInteger index = 0; index < self.totalImageDownloadCount; index++) {
         NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://lorempixel.com/400/400/?%i", arc4random()]];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        NSURLSessionDownloadTask *downloadTask = [self.session downloadTaskWithRequest:request
-                                                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                                         NSString *filename = [NSString stringWithFormat:@"image%i.jpg", arc4random()];
-                                                                         NSURL *imageURL = [tempURL URLByAppendingPathComponent:filename];
-                                                                         
-                                                                         NSError *fileError;
-                                                                         [[NSFileManager defaultManager] moveItemAtURL:location
-                                                                                                                 toURL:imageURL
-                                                                                                                 error:&fileError];
-                                                                         NSAssert(fileError == nil, @"something happended");
-                                                                         
-                                                                         UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageURL.path];
-                                                                         
-                                                                         NSAssert(image.size.width != 0 && image.size.height != 0, @"image is no image");
-                                                                         
-                                                                         [self.images addObject:image];
-                                                                         [self log:[NSString stringWithFormat:@"loaded %lu of %li images", (unsigned long)self.images.count, (long)self.totalImageDownloadCount]];
-                                                                         
-                                                                         [self progress:self.images.count
-                                                                                     of:self.totalImageDownloadCount];
-                                                                         
-                                                                         
-                                                                         if (self.images.count == self.totalImageDownloadCount) {
-                                                                             [self addImagesToLibrary];
-                                                                         }
-                                                                     }];
-        [downloadTask resume];
+        if (self.session) {
+            NSURLSessionDownloadTask *downloadTask = [self.session downloadTaskWithRequest:request
+                                                                         completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                                             NSString *filename = [NSString stringWithFormat:@"image%i.jpg", arc4random()];
+                                                                             NSURL *imageURL = [tempURL URLByAppendingPathComponent:filename];
+                                                                             
+                                                                             NSError *fileError;
+                                                                             [[NSFileManager defaultManager] moveItemAtURL:location
+                                                                                                                     toURL:imageURL
+                                                                                                                     error:&fileError];
+                                                                             NSAssert(fileError == nil, @"something happended");
+                                                                             
+                                                                             UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageURL.path];
+                                                                             
+                                                                             NSAssert(image.size.width != 0 && image.size.height != 0, @"image is no image");
+                                                                             
+                                                                             [self.imagePATHs addObject:imageURL.path];
+                                                                             [self log:[NSString stringWithFormat:@"loaded %lu of %li images", (unsigned long)self.imagePATHs.count, (long)self.totalImageDownloadCount]];
+                                                                             
+                                                                             [self progress:self.imagePATHs.count
+                                                                                         of:self.totalImageDownloadCount];
+                                                                             
+                                                                             
+                                                                             if (self.imagePATHs.count == self.totalImageDownloadCount) {
+                                                                                 [self addImagesToLibrary];
+                                                                             }
+                                                                         }];
+            [downloadTask resume];
+        }
+        else {
+            CHHTTPConnection *connection = [[CHHTTPConnection alloc] initWithRequest:request];
+            
+            [connection executeRequestOnComplete:^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+                NSAssert(data != nil, @"Data is nil");
+                NSString *filename = [NSString stringWithFormat:@"image%i.jpg", arc4random()];
+                NSURL *imageURL = [tempURL URLByAppendingPathComponent:filename];
+                
+                BOOL result = [data writeToURL:imageURL atomically:YES];
+                NSAssert(result == YES, @"Write fail");
+
+                
+                [self.imagePATHs addObject:imageURL.path];
+                
+                
+                [self progress:self.imagePATHs.count
+                            of:self.totalImageDownloadCount];
+                
+                
+                if (self.imagePATHs.count == self.totalImageDownloadCount) {
+                    [self addImagesToLibrary];
+                }
+
+            }];
+        }
     }
+
+
 }
 @end
