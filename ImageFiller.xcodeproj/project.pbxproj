@@ -22,6 +22,7 @@
 		5014695D18C8D68200785E1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5014695B18C8D68200785E1B /* InfoPlist.strings */; };
 		5014695F18C8D68200785E1B /* ImageFillerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014695E18C8D68200785E1B /* ImageFillerTests.m */; };
 		5014696918C8DCAB00785E1B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5014696818C8DCAB00785E1B /* AssetsLibrary.framework */; };
+		772F2BE918FF8AFC005258DD /* CHHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F2BE818FF8AFC005258DD /* CHHTTPConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		5014695C18C8D68200785E1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5014695E18C8D68200785E1B /* ImageFillerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFillerTests.m; sourceTree = "<group>"; };
 		5014696818C8DCAB00785E1B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		772F2BE718FF8AFC005258DD /* CHHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHHTTPConnection.h; sourceTree = "<group>"; };
+		772F2BE818FF8AFC005258DD /* CHHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHHTTPConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,8 @@
 		5014693918C8D68200785E1B /* ImageFiller */ = {
 			isa = PBXGroup;
 			children = (
+				772F2BE718FF8AFC005258DD /* CHHTTPConnection.h */,
+				772F2BE818FF8AFC005258DD /* CHHTTPConnection.m */,
 				5014694218C8D68200785E1B /* IFAppDelegate.h */,
 				5014694318C8D68200785E1B /* IFAppDelegate.m */,
 				5014694518C8D68200785E1B /* Main.storyboard */,
@@ -257,6 +262,7 @@
 				5014694018C8D68200785E1B /* main.m in Sources */,
 				5014694418C8D68200785E1B /* IFAppDelegate.m in Sources */,
 				5014694A18C8D68200785E1B /* IFViewController.m in Sources */,
+				772F2BE918FF8AFC005258DD /* CHHTTPConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +392,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImageFiller/ImageFiller-Prefix.pch";
 				INFOPLIST_FILE = "ImageFiller/ImageFiller-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -399,6 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImageFiller/ImageFiller-Prefix.pch";
 				INFOPLIST_FILE = "ImageFiller/ImageFiller-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -465,6 +473,7 @@
 				5014696418C8D68200785E1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5014696518C8D68200785E1B /* Build configuration list for PBXNativeTarget "ImageFillerTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +482,7 @@
 				5014696718C8D68200785E1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
