@@ -11,6 +11,13 @@
 
 #import "IFViewController.h"
 #import "CHHTTPConnection.h"
+//You can define the max concurrent count when writing to photo library
+
+#if TARGET_IPHONE_SIMULATOR
+#define MAXConcurrentCount NSIntegerMax
+#else 
+#define MAXConcurrentCount 100//Tested in iTouch 4, iOS 6, 100 is safe to use. You can adjust the count if needed.
+#endif
 
 @interface IFViewController ()
 
@@ -50,6 +57,7 @@
     [exifDateFormatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
     
     self.totalImagesWrittenCount = 0;
+    __block NSInteger maxConcurrentCount = MAXConcurrentCount;
     
     for (NSInteger index = 0; index < self.totalImageWriteCount; index++) {
         UIImage *image = [UIImage imageWithContentsOfFile:self.imagePATHs[arc4random() % self.imagePATHs.count]];
@@ -60,11 +68,8 @@
         
         NSDictionary *metadata = @{ (NSString *)kCGImagePropertyExifDictionary: exifData };
         
-        __block BOOL writeFinished = NO;
-#if TARGET_IPHONE_SIMULATOR
-        writeFinished = YES;
-#endif
-        
+
+        maxConcurrentCount--;
         [self.assetsLibrary writeImageToSavedPhotosAlbum:image.CGImage
                                                 metadata:metadata
                                          completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -77,12 +82,12 @@
                                                  [self log:@"complete!"];
                                              }
                                              
-                                             writeFinished = YES;
+                                             maxConcurrentCount++;
                                          }];
         
         //Wati until write operation finished when target is a real device, otherwise memory pressure will cause crash
         NSTimeInterval checkEveryInterval = 0.1;
-        while(!writeFinished) {
+        while(maxConcurrentCount < 0) {
             @autoreleasepool {
                 if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:checkEveryInterval]])
                     [NSThread sleepForTimeInterval:checkEveryInterval];
